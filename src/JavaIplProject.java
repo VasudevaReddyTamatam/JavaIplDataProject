@@ -144,5 +144,11 @@ public class JavaIplProject {
         for(Map.Entry<String,Integer> m : result2.entrySet()){
             System.out.println("Team "+m.getKey()+" won "+m.getValue()+" matches.");
         }
+        System.out.println("-------------------------------------------------------------");
+        Scenario3 s3=new Scenario3();
+        Map<String,Integer> result3=s3.findExtraRunsConcededPerTeam(matchData,deliveryData);
+        for(Map.Entry<String,Integer> m : result3.entrySet()){
+            System.out.println(m.getKey()+"  "+m.getValue());
+        }
     }
 }
