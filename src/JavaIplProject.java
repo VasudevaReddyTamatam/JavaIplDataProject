@@ -150,5 +150,11 @@ public class JavaIplProject {
         for(Map.Entry<String,Integer> m : result3.entrySet()){
             System.out.println(m.getKey()+"  "+m.getValue());
         }
+        System.out.println("-------------------------------------------------------------");
+        Scenario4 s4=new Scenario4();
+        List<Map.Entry<String,Double>> result4=s4.findTopEconomicBowlers(matchData,deliveryData);
+        for(int i=0;i<10;i++) {
+            System.out.println(result4.get(i));
+        }
     }
 }
