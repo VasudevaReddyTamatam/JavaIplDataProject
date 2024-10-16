@@ -156,5 +156,17 @@ public class JavaIplProject {
         for(int i=0;i<10;i++) {
             System.out.println(result4.get(i));
         }
+        System.out.println("-------------------------------------------------------------");
+        Scenario5 s5=new Scenario5();
+        Map<String,Integer> result5=s5.findTeamsWonTossAndMatch2016(matchData);
+        for(Map.Entry<String,Integer> m : result5.entrySet()){
+            System.out.println(m.getKey()+"  "+m.getValue());
+        }
+        System.out.println("-------------------------------------------------------------");
+        Scenario6 s6=new Scenario6();
+        s6.findPlayerOfMacthSeason(matchData);
+        System.out.println("-------------------------------------------------------------");
+        Scenario7 s7=new Scenario7();
+        s7.findOrangeCap2016(matchData,deliveryData);
     }
 }
