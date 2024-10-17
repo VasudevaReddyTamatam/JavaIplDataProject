@@ -184,6 +184,7 @@ public class JavaIplProject {
             }
         }
         System.out.println("-------------------------------------------------------------");
+        System.out.println("Extra runs conceded per each team in 2016:");
         System.out.println(extraRunsConcededPerTeam);
     }
 
@@ -213,10 +214,10 @@ public class JavaIplProject {
             double economy = runs / (balls / 6.0);
             economyRate.put(bowlerName, economy);
         }
-        Set<Map.Entry<String, Double>> economyRateSet = economyRate.entrySet();
-        List<Map.Entry<String, Double>> topEconomyBowlers = new ArrayList<>(economyRateSet);
+        List<Map.Entry<String, Double>> topEconomyBowlers = new ArrayList<>(economyRate.entrySet());
         Collections.sort(topEconomyBowlers, (val1, val2) -> val1.getValue().compareTo(val2.getValue()));
         System.out.println("-------------------------------------------------------------");
+        System.out.println("Top economic Bowlers in 2015:");
         System.out.println(topEconomyBowlers);
     }
 
@@ -229,6 +230,7 @@ public class JavaIplProject {
             }
         }
         System.out.println("-------------------------------------------------------------");
+        System.out.println("Number of times the teams won both toss and match: ");
         System.out.println(teamsWonBothTossAndMatch);
     }
 
@@ -246,10 +248,10 @@ public class JavaIplProject {
                         + Integer.parseInt(delivery.getTotalRuns()));
             }
         }
-        Set<Map.Entry<String, Integer>> batsManRunsSet = batsManRuns.entrySet();
-        List<Map.Entry<String, Integer>> orangeCap = new ArrayList<>(batsManRunsSet);
+        List<Map.Entry<String, Integer>> orangeCap = new ArrayList<>(batsManRuns.entrySet());
         Collections.sort(orangeCap, (val1, val2) -> val2.getValue().compareTo(val1.getValue()));
         System.out.println("--------------------------------------------------------------");
+        System.out.println("Orange cap holder in 2016:");
         System.out.println(orangeCap.get(0));
     }
 }
