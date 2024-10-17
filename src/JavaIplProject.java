@@ -145,12 +145,8 @@ public class JavaIplProject {
     private static void findNumberOfMatchesPlayedPerYear(List<MatchData> matches) {
         Map<String, Integer> numberOfMatchesPlayedPerYear = new HashMap<>();
         for (MatchData match : matches) {
-            if (numberOfMatchesPlayedPerYear.containsKey(match.getSeason())) {
-                numberOfMatchesPlayedPerYear.put(match.getSeason(),
-                        numberOfMatchesPlayedPerYear.get(match.getSeason()) + 1);
-            } else {
-                numberOfMatchesPlayedPerYear.put(match.getSeason(), 1);
-            }
+            numberOfMatchesPlayedPerYear.put(match.getSeason(),
+                    numberOfMatchesPlayedPerYear.getOrDefault(match.getSeason(), 0) + 1);
         }
         for (Map.Entry<String, Integer> mapEntry : numberOfMatchesPlayedPerYear.entrySet()) {
             System.out.println("In Year " + mapEntry.getKey() + ", " + mapEntry.getValue() + " matches happened.");
@@ -163,12 +159,8 @@ public class JavaIplProject {
             if (match.getWinner() == null || match.getWinner().trim().isEmpty()) {
                 continue;
             }
-            if (numberOfMatchesWonEachTeam.containsKey(match.getWinner())) {
-                numberOfMatchesWonEachTeam.put(match.getWinner(), (numberOfMatchesWonEachTeam.get(match.getWinner())
-                        + 1));
-            } else {
-                numberOfMatchesWonEachTeam.put(match.getWinner(), 1);
-            }
+            numberOfMatchesWonEachTeam.put(match.getWinner(),
+                    (numberOfMatchesWonEachTeam.getOrDefault(match.getWinner(), 0) + 1));
         }
         System.out.println("-------------------------------------------------------------");
         for (Map.Entry<String, Integer> mapEntry : numberOfMatchesWonEachTeam.entrySet()) {
@@ -178,7 +170,7 @@ public class JavaIplProject {
 
     private static void findExtraRunsConcededPerTeam(List<MatchData> matches, List<DeliveryData> deliveries) {
         Map<String, Integer> extraRunsConcededPerTeam = new HashMap<>();
-        ArrayList<String> matchIds2016 = new ArrayList<>();
+        HashSet<String> matchIds2016 = new HashSet<>();
         for (MatchData match : matches) {
             if ((match.getSeason()).equals("2016")) {
                 matchIds2016.add(match.getId());
@@ -187,12 +179,8 @@ public class JavaIplProject {
         for (DeliveryData delivery : deliveries) {
             if (matchIds2016.contains(delivery.getMatchId())) {
                 int extraRuns = Integer.parseInt(delivery.getExtraRuns());
-                if (extraRunsConcededPerTeam.containsKey(delivery.getBowlingTeam())) {
-                    extraRunsConcededPerTeam.replace(delivery.getBowlingTeam(),
-                            extraRunsConcededPerTeam.get(delivery.getBowlingTeam()) + extraRuns);
-                } else {
-                    extraRunsConcededPerTeam.put(delivery.getBowlingTeam(), extraRuns);
-                }
+                extraRunsConcededPerTeam.put(delivery.getBowlingTeam(),
+                        extraRunsConcededPerTeam.getOrDefault(delivery.getBowlingTeam(), 0) + extraRuns);
             }
         }
         System.out.println("-------------------------------------------------------------");
@@ -200,7 +188,7 @@ public class JavaIplProject {
     }
 
     private static void findTopEconomicBowlers(List<MatchData> matches, List<DeliveryData> deliveries) {
-        ArrayList<String> matchIds2015 = new ArrayList<>();
+        HashSet<String> matchIds2015 = new HashSet<>();
         for (MatchData match : matches) {
             if ((match.getSeason()).equals("2015")) {
                 matchIds2015.add(match.getId());
@@ -245,7 +233,7 @@ public class JavaIplProject {
     }
 
     private static void findOrangeCap2016(List<MatchData> matches, List<DeliveryData> deliveries) {
-        List<String> matchIds2016 = new ArrayList<>();
+        Set<String> matchIds2016 = new HashSet<>();
         for (MatchData match : matches) {
             if (match.getSeason().equals("2016")) {
                 matchIds2016.add(match.getId());
