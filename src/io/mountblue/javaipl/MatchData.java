@@ -1,3 +1,5 @@
+package io.mountblue.javaipl;
+
 public class MatchData {
     private String id;
     private String season;

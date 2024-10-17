@@ -1,3 +1,5 @@
+package io.mountblue.javaipl;
+
 public class DeliveryData {
     private String matchId;
     private String inning;
