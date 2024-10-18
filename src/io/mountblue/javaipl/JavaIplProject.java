@@ -217,7 +217,7 @@ public class JavaIplProject {
             economyRate.put(bowlerName, economy);
         }
         List<Map.Entry<String, Double>> topEconomyBowlers = new ArrayList<>(economyRate.entrySet());
-        Collections.sort(topEconomyBowlers, (val1, val2) -> val1.getValue().compareTo(val2.getValue()));
+        topEconomyBowlers.sort((val1, val2) -> val1.getValue().compareTo(val2.getValue()));
         System.out.println("-------------------------------------------------------------");
         System.out.println("Top economic Bowlers in 2015:");
         System.out.println(topEconomyBowlers);
@@ -251,7 +251,7 @@ public class JavaIplProject {
             }
         }
         List<Map.Entry<String, Integer>> orangeCap = new ArrayList<>(batsManRuns.entrySet());
-        Collections.sort(orangeCap, (val1, val2) -> val2.getValue().compareTo(val1.getValue()));
+        orangeCap.sort((val1, val2) -> val2.getValue().compareTo(val1.getValue()));
         System.out.println("--------------------------------------------------------------");
         System.out.println("Orange cap holder in 2016:");
         System.out.println(orangeCap.get(0));
