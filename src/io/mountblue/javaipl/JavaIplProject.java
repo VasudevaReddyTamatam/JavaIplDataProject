@@ -142,6 +142,7 @@ public class JavaIplProject {
         findTopEconomicBowlers(matchData, deliveryData);
         findTeamsWonBothTossAndMatch2016(matchData);
         findOrangeCap2016(matchData, deliveryData);
+        findStrikeRateAgainstMiForAllYears(deliveryData);
     }
 
     private static void findNumberOfMatchesPlayedPerYear(List<MatchData> matches) {
@@ -150,8 +151,8 @@ public class JavaIplProject {
             numberOfMatchesPlayedPerYear.put(match.getSeason(),
                     numberOfMatchesPlayedPerYear.getOrDefault(match.getSeason(), 0) + 1);
         }
-        for (Map.Entry<String, Integer> mapEntry : numberOfMatchesPlayedPerYear.entrySet()) {
-            System.out.println("In Year " + mapEntry.getKey() + ", " + mapEntry.getValue() + " matches happened.");
+        for (Map.Entry<String, Integer> yearNumber : numberOfMatchesPlayedPerYear.entrySet()) {
+            System.out.println("In Year " + yearNumber.getKey() + ", " + yearNumber.getValue() + " matches happened.");
         }
     }
 
@@ -165,8 +166,8 @@ public class JavaIplProject {
                     (numberOfMatchesWonEachTeam.getOrDefault(match.getWinner(), 0) + 1));
         }
         System.out.println("-------------------------------------------------------------");
-        for (Map.Entry<String, Integer> mapEntry : numberOfMatchesWonEachTeam.entrySet()) {
-            System.out.println("Team " + mapEntry.getKey() + " won " + mapEntry.getValue() + " matches.");
+        for (Map.Entry<String, Integer> teamWon : numberOfMatchesWonEachTeam.entrySet()) {
+            System.out.println("Team " + teamWon.getKey() + " won " + teamWon.getValue() + " matches.");
         }
     }
 
@@ -255,5 +256,40 @@ public class JavaIplProject {
         System.out.println("--------------------------------------------------------------");
         System.out.println("Orange cap holder in 2016:");
         System.out.println(orangeCap.get(0));
+    }
+
+    private static void findStrikeRateAgainstMiForAllYears(List<DeliveryData> deliveries) {
+        Map<String, HashMap<String, HashMap<String, Integer>>> teamPlayerRunsBalls = new HashMap<>();
+        for (DeliveryData delivery : deliveries) {
+            if (delivery.getBowlingTeam().equals("Mumbai Indians")) {
+                teamPlayerRunsBalls.putIfAbsent(delivery.getBattingTeam(), new HashMap<>());
+                HashMap<String, HashMap<String, Integer>> playerRunsBalls =
+                        teamPlayerRunsBalls.get(delivery.getBattingTeam());
+                playerRunsBalls.putIfAbsent(delivery.getBatsman(), new HashMap<>());
+                HashMap<String, Integer> runsBalls = playerRunsBalls.get(delivery.getBatsman());
+                runsBalls.put("runs", runsBalls.getOrDefault("runs", 0) +
+                        (Integer.parseInt(delivery.getBatsmanRuns())));
+                runsBalls.put("balls", runsBalls.getOrDefault("balls", 0) + 1);
+            }
+        }
+        System.out.println("----------------------------------------------");
+        for (Map.Entry<String, HashMap<String, HashMap<String, Integer>>> mapTeamPlayerRunsBalls :
+                teamPlayerRunsBalls.entrySet()) {
+            String team = mapTeamPlayerRunsBalls.getKey();
+            System.out.print("In team " + team + ",,");
+            Map<String, HashMap<String, Integer>> hashPlayerRunsBalls = mapTeamPlayerRunsBalls.getValue();
+            Map<String, Double> playerStrikeRate = new HashMap<>();
+            for (Map.Entry<String, HashMap<String, Integer>> mapPlayerRunsBalls : hashPlayerRunsBalls.entrySet()) {
+                String batter = mapPlayerRunsBalls.getKey();
+                double runs = (double) mapPlayerRunsBalls.getValue().get("runs");
+                double balls = (double) mapPlayerRunsBalls.getValue().get("balls");
+                double strikeRate = (runs / balls) * 100;
+                playerStrikeRate.put(batter, strikeRate);
+            }
+            List<Map.Entry<String, Double>> highPlayerStrikeRate = new ArrayList<>(playerStrikeRate.entrySet());
+            highPlayerStrikeRate.sort((val1, val2) -> val2.getValue().compareTo(val1.getValue()));
+            Map.Entry<String, Double> topPlayer = highPlayerStrikeRate.get(0);
+            System.out.println(topPlayer.getKey() + "--" + topPlayer.getValue());
+        }
     }
 }
