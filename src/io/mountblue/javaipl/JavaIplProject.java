@@ -49,8 +49,7 @@ public class JavaIplProject {
 
     private static List<MatchData> getMatchData() {
         List<MatchData> matches = new ArrayList<>();
-        try (BufferedReader buffer = new BufferedReader(new FileReader("/home/vasudeva/IdeaProjects/" +
-                "JavaIplDataProject/matches.csv"))) {
+        try (BufferedReader buffer = new BufferedReader(new FileReader("C:\\Users\\pooji\\Downloads\\matche.csv"))) {
             String firstLine = buffer.readLine();
             ArrayList<String> firstLineArray = new ArrayList<>(Arrays.asList(firstLine.split(",")));
             String line;
@@ -90,8 +89,7 @@ public class JavaIplProject {
 
     private static List<DeliveryData> getDeliveryData() {
         List<DeliveryData> deliveries = new ArrayList<>();
-        try (BufferedReader buffer = new BufferedReader(new FileReader("/home/vasudeva/IdeaProjects/" +
-                "JavaIplDataProject/deliveries.csv"))) {
+        try (BufferedReader buffer = new BufferedReader(new FileReader("C:\\Users\\pooji\\Downloads\\d.csv"))) {
             String firstLine = buffer.readLine();
             ArrayList<String> firstLineArray = new ArrayList<>(Arrays.asList(firstLine.split(",")));
             String line;
